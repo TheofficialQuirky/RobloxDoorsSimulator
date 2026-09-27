@@ -82,10 +82,10 @@ h1 {
 
 .entityIcon {
     position: absolute;
-    bottom: 6px;
+    bottom: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 75px;
+    width: 48px;
     height: auto;
     pointer-events: none;
 }
@@ -95,8 +95,8 @@ h1 {
     bottom: 6px;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
-    height: 106px;
+    width: 60px;
+    height: 60px;
     background: #3a3a3a;
     border-radius: 8px;
     display: flex;
