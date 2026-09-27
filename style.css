@@ -28,19 +28,22 @@ h1 {
     border: 2px solid #f5e6c8;
     width: 800px;
     height: 600px;
-    position: relative;
     background: #3b241b;
-    overflow-y: scroll;
-    padding: 20px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
 .room {
+    display: inline-block;
+    width: 350px;
+    height: 550px;
     background: #4a2f23;
-    border: 1px solid #f5e6c8;
+    border: 2px solid #f5e6c8;
     color: #f5e6c8;
     font-family: 'Oswald', sans-serif;
-    padding: 15px;
-    margin-bottom: 15px;
-    font-size: 24px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 550px;
+    margin-right: 0;
 }
-
