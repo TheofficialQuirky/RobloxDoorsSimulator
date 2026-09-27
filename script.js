@@ -28,8 +28,9 @@ function generateRun() {
         "Key_LeftCurve3Mirrored", "Puzzle_Key1", "Room1",
         "Room1Mirrored", "Room2", "Room2Mirrored", "SkinnyHallway1",
         "SkinnyHallway2", "SmallLibrary1", "Squeeze1", "Squeeze2",
-        "TJunc1", "Upstairs1", "WardrobeRoom", "Window1"];
-    
+        "TJunc1", "Upstairs1", "WardrobeRoom", "Window1"
+    ];
+
     const room0 = document.createElement("div");
     room0.className = "room";
 
@@ -41,20 +42,40 @@ function generateRun() {
     `;
 
     map.appendChild(room0);
-    
-    for (let i = 1; i < 101; i++) {
+
+    const rooms = [];
+    for (let i = 1; i <= 100; i++) {
+        const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
+        rooms.push({ number: i, type });
+    }
+
+    const lockedCount = Math.floor(Math.random() * 3) + 3; // 3, 4, or 5
+    const lockedPositions = new Set();
+
+    while (lockedPositions.size < lockedCount) {
+        const pos = Math.floor(Math.random() * 100) + 1; // positions 1–100
+        lockedPositions.add(pos);
+    }
+
+    lockedPositions.forEach(pos => {
+        const lockedType = lockedRooms[Math.floor(Math.random() * lockedRooms.length)];
+        rooms[pos - 1].type = lockedType;
+    });
+
+    rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
 
-        const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
-        const number = String(i).padStart(4, "0");
-
+        const number = String(roomData.number).padStart(4, "0");
+        const type = roomData.type;
         const isLocked = lockedRooms.includes(type);
 
         room.innerHTML = isLocked
-            ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div><span class="roomName">Hotel_${type}</span>`
-            : `<div class="roomTop">${number}</div><span class="roomName">Hotel_${type}</span>`;
+            ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
+            <span class="roomName">Hotel_${type}</span>`
+            : `<div class="roomTop">${number}</div>
+            <span class="roomName">Hotel_${type}</span>`;
 
         map.appendChild(room);
-    }
+    });
 }
