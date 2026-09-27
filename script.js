@@ -52,20 +52,37 @@ function generateRun() {
         const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
-
+    
+    const lockPatterns = [
+        { early: 2, late: 1 },
+        { early: 2, late: 2 },
+        { early: 3, late: 1 },
+        { early: 3, late: 2 },
+        { early: 4, late: 1 }
+    ];
+    
     const lockedCount = Math.floor(Math.random() * 3) + 3;
+    
+    const validPatterns = lockPatterns.filter(p => p.early + p.late === lockedCount);
+    const chosenPattern = validPatterns[Math.floor(Math.random() * validPatterns.length)];
+    
     const lockedPositions = new Set();
-
-    while (lockedPositions.size < lockedCount) {
-        const pos = Math.floor(Math.random() * 100) + 1;
+    
+    while (lockedPositions.size < chosenPattern.early) {
+    const pos = Math.floor(Math.random() * 50) + 1;
+    lockedPositions.add(pos);
+    }
+    
+    while (lockedPositions.size < chosenPattern.early + chosenPattern.late) {
+        const pos = Math.floor(Math.random() * 50) + 51;
         lockedPositions.add(pos);
     }
-
+    
     lockedPositions.forEach(pos => {
         const lockedType = lockedRooms[Math.floor(Math.random() * lockedRooms.length)];
         rooms[pos - 1].type = lockedType;
     });
-
+    
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
     rooms[50].type = "Hotel_LibraryExit";
