@@ -7,6 +7,10 @@ const lockedRooms = [
     "Hotel_Puzzle_Key1"
 ];
 
+const protectedDoors = new Set([
+    48, 49, 50, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
+]);
+
 document.getElementById("generateBtn").addEventListener("click", generateRun);
 
 function generateRun() {
@@ -47,11 +51,6 @@ function generateRun() {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         rooms.push({ number: i, type });
     }
-
-    for (let i = 90; i <= 97; i++) {
-        const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
-        rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
-    }
     
     const lockPatterns = [
         { early: 2, late: 1 },
@@ -69,19 +68,28 @@ function generateRun() {
     const lockedPositions = new Set();
     
     while (lockedPositions.size < chosenPattern.early) {
-    const pos = Math.floor(Math.random() * 50) + 1;
-    lockedPositions.add(pos);
+        const pos = Math.floor(Math.random() * 50) + 1;
+        if (!protectedDoors.has(pos)) {
+            lockedPositions.add(pos);
+        }
     }
     
     while (lockedPositions.size < chosenPattern.early + chosenPattern.late) {
         const pos = Math.floor(Math.random() * 50) + 51;
-        lockedPositions.add(pos);
+        if (!protectedDoors.has(pos)) {
+            lockedPositions.add(pos);
+        }
     }
     
     lockedPositions.forEach(pos => {
         const lockedType = lockedRooms[Math.floor(Math.random() * lockedRooms.length)];
         rooms[pos - 1].type = lockedType;
     });
+
+    for (let i = 90; i <= 97; i++) {
+        const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
+        rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
+    }
     
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
