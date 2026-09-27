@@ -1,13 +1,33 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Oswald', sans-serif;
+    background-color: #4a2f23; /* deep brown */
+    color: #f5e6c8; /* light beige */
     padding: 20px;
+}
+
+h1 {
+    color: #f5e6c8;
+}
+
+#generateBtn {
+    background-color: #f5e6c8;
+    color: #4a2f23;
+    border: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    font-family: 'Oswald', sans-serif;
+}
+
+#generateBtn:hover {
+    background-color: #e8d9b8;
 }
 
 #map {
     margin-top: 20px;
-    border: 2px solid black;
+    border: 2px solid #f5e6c8;
     width: 800px;
     height: 600px;
     position: relative;
-    background: #f0f0f0;
+    background: #3b241b; /* darker brown for contrast */
 }
