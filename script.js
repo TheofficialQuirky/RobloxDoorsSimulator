@@ -35,13 +35,15 @@ function generateRun() {
     room0.className = "room";
 
     room0.innerHTML = `
-        <div class="roomTop">0000</div>
+        <div class="roomTop lockedTop">0000
+            <img src="Lock_icon.svg" class="lockIcon">
+        </div>
         <span class="roomName">Hotel_Reception</span>
     `;
 
     map.appendChild(room0);
     
-    for (let i = 1; i < 20; i++) {
+    for (let i = 1; i < 21; i++) {
         const room = document.createElement("div");
         room.className = "room";
 
