@@ -52,6 +52,7 @@ h1 {
 
     text-align: center;
     box-sizing: border-box;
+    position: relative;
 }
 
 .roomName {
@@ -80,13 +81,13 @@ h1 {
 }
 
 .entityTag {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 6px;
     background: #222;
     color: white;
     padding: 2px 6px;
     font-size: 12px;
     border-radius: 4px;
-    display: block;
-    margin-top: 4px;
-    position: relative;
-    top: 6px;
 }
