@@ -35,11 +35,13 @@ h1 {
 }
 
 .room {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
     width: 350px;
     height: 500px;
     margin-top: 40px;
-    margin-right: 0;
 
     background: #4a2f23;
     border: 2px solid #f5e6c8;
@@ -48,8 +50,6 @@ h1 {
     font-size: 40px;
 
     text-align: center;
-
-    padding-top: 60px;
     box-sizing: border-box;
 }
 
@@ -65,4 +65,12 @@ h1 {
     height: 30px;
     margin-left: 10px;
     vertical-align: middle;
+}
+
+.roomTop {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
