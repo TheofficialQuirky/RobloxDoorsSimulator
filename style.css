@@ -78,3 +78,13 @@ h1 {
 .lockedTop {
     transform: translateX(3px);
 }
+
+.entityTag {
+    background: #222;
+    color: white;
+    padding: 2px 6px;
+    margin-top: 3px;
+    font-size: 12px;
+    border-radius: 4px;
+    display: inline-block;
+}
