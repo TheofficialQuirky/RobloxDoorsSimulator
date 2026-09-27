@@ -2,7 +2,7 @@ document.getElementById("generateBtn").addEventListener("click", generateRun);
 
 function generateRun() {
     const map = document.getElementById("map");
-    map.innerHTML = "";
+    map.innerHTML = ""; // clear previous run
 
     const roomTypes = ["Room1", "Room2", "Room3"];
 
@@ -12,7 +12,10 @@ function generateRun() {
 
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
 
-        room.textContent = `${type} (Room ${i + 1})`;
+        // pad numbers to 4 digits (0001, 0002, etc.)
+        const number = String(i + 1).padStart(4, "0");
+
+        room.textContent = `${number} - ${type}`;
 
         map.appendChild(room);
     }
