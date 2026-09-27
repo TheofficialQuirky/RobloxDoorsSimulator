@@ -40,8 +40,9 @@ function generateRun() {
         const isLocked = lockedRooms.includes(type);
 
         room.innerHTML = isLocked
-            ? `${number} <img src="Lock_icon.svg" class="lockIcon"><span class="roomName">Hotel_${type}</span>`
-            : `${number}<span class="roomName">Hotel_${type}</span>`;
+            ? `<div class="roomTop">${number}<img src="lock_icon.svg" class="lockIcon"></div><span class="roomName">Hotel_${type}</span>`
+            : `<div class="roomTop">${number}</div><span class="roomName">Hotel_${type}</span>`;
+
 
         map.appendChild(room);
     }
