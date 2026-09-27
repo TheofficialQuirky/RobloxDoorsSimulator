@@ -31,12 +31,22 @@ function generateRun() {
         "TJunc1", "Upstairs1", "WardrobeRoom", "Window1"
     ];
 
-    for (let i = 0; i < 20; i++) {
+    const room0 = document.createElement("div");
+    room0.className = "room";
+
+    room0.innerHTML = `
+        <div class="roomTop">0000</div>
+        <span class="roomName">Hotel_Reception</span>
+    `;
+
+    roomsContainer.appendChild(room0);
+
+    for (let i = 1; i < 20; i++) {
         const room = document.createElement("div");
         room.className = "room";
 
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
-        const number = String(i + 1).padStart(4, "0");
+        const number = String(i).padStart(4, "0");
 
         const isLocked = lockedRooms.includes(type);
 
