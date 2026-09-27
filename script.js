@@ -1,3 +1,10 @@
+const lockedRooms = [
+    "ChexKey",
+    "Key_LeftCurve3",
+    "Key_LeftCurve3Mirrored",
+    "PuzzleKey1"
+];
+
 document.getElementById("generateBtn").addEventListener("click", generateRun);
 
 function generateRun() {
@@ -30,7 +37,11 @@ function generateRun() {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         const number = String(i + 1).padStart(4, "0");
 
-        room.innerHTML = `${number}<span class="roomName">Hotel_${type}</span>`;
+        const isLocked = lockedRooms.includes(type);
+
+        room.innerHTML = isLocked
+            ? `${number} <img src="lock_icon.svg" class="lockIcon"><span class="roomName">Hotel_${type}</span>`
+            : `${number}<span class="roomName">Hotel_${type}</span>`;
 
         map.appendChild(room);
     }
