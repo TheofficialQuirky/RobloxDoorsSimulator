@@ -4,21 +4,16 @@ function generateRun() {
     const map = document.getElementById("map");
     map.innerHTML = "";
 
-    let x = 20;
-    let y = 20;
+    const roomTypes = ["Room1", "Room2", "Room3"];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const room = document.createElement("div");
-        room.style.position = "absolute";
-        room.style.left = x + "px";
-        room.style.top = y + "px";
-        room.style.width = "120px";
-        room.style.height = "60px";
-        room.style.background = "#cfc";
-        room.style.border = "1px solid #333";
+        room.className = "room";
+
+        const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
+
+        room.textContent = `${type} (Room ${i + 1})`;
 
         map.appendChild(room);
-
-        x += 140;
     }
 }
