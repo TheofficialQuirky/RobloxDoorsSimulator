@@ -43,7 +43,7 @@ function generateRun() {
     map.appendChild(room0);
 
     const rooms = [];
-    for (let i = 1; i <= 86; i++) {
+    for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         rooms.push({ number: i, type });
     }
