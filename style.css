@@ -37,13 +37,14 @@ h1 {
 .room {
     display: inline-block;
     width: 350px;
-    height: 550px;
+    height: 500px;
     background: #4a2f23;
     border: 2px solid #f5e6c8;
     color: #f5e6c8;
     font-family: 'Oswald', sans-serif;
     font-size: 40px;
     text-align: center;
-    line-height: 550px;
+    line-height: 500px;
+    margin-top: 40px;
     margin-right: 0;
 }
