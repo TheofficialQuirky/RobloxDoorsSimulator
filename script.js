@@ -77,7 +77,7 @@ function generateRun() {
 
     map.appendChild(room0);
     
-    for (let i = 1; i < 21; i++) {
+    for (let i = 1; i < 101; i++) {
         const room = document.createElement("div");
         room.className = "room";
 
