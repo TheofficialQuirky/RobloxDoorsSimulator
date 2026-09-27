@@ -53,8 +53,8 @@ h1 {
 }
 
 .roomName {
-    font-size: 20px;             /* smaller room name */
-    margin-top: 10px;            /* spacing below number */
+    font-size: 20px;
+    margin-top: 10px;
     line-height: normal;
     display: block;
 }
