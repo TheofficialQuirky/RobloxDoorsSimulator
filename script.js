@@ -2,7 +2,8 @@ const lockedRooms = [
     "ChexKey",
     "Key_LeftCurve3",
     "Key_LeftCurve3Mirrored",
-    "PuzzleKey1"
+    "PuzzleKey1",
+    "Corner_Keyroom"
 ];
 
 document.getElementById("generateBtn").addEventListener("click", generateRun);
