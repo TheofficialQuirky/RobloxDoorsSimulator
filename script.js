@@ -61,6 +61,13 @@ function generateRun() {
         rooms[pos - 1].type = lockedType;
     });
 
+    rooms[48].type = "LibraryEntrance";
+    rooms[49].type = "Library";
+    rooms[50].type = "LibraryExit";
+    rooms[87].type = "PreCourtyard";
+    rooms[88].type = "Courtyard";
+    rooms[99].type = "EndNew";
+
     rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
