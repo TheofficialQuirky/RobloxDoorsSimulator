@@ -53,11 +53,11 @@ function generateRun() {
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
 
-    const lockedCount = Math.floor(Math.random() * 3) + 3; // 3, 4, or 5
+    const lockedCount = Math.floor(Math.random() * 3) + 3;
     const lockedPositions = new Set();
 
     while (lockedPositions.size < lockedCount) {
-        const pos = Math.floor(Math.random() * 100) + 1; // positions 1–100
+        const pos = Math.floor(Math.random() * 100) + 1;
         lockedPositions.add(pos);
     }
 
@@ -71,6 +71,8 @@ function generateRun() {
     rooms[50].type = "Hotel_LibraryExit";
     rooms[87].type = "Hotel_PreCourtyard";
     rooms[88].type = "Hotel_Courtyard";
+    rooms[89].type = "Greenhouse_Intermission";
+    rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
 
     rooms.forEach(roomData => {
