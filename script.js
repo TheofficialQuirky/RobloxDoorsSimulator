@@ -131,7 +131,11 @@ function generateRun() {
         // Build entity tags
         let entityHTML = "";
         roomData.entities.forEach(entity => {
-            entityHTML += `<img src="${entity}image.png" class="entityIcon">`;
+            entityHTML += `
+                <div class="entityBox">
+                <img src="${entity}image.png" class="entityIcon">
+                </div>
+            `;
         });
 
         room.innerHTML = isLocked
