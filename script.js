@@ -19,7 +19,7 @@ function generateRun() {
         "HallwayLong1", "HallwaySideroom1", "Key_LeftCurve3",
         "Key_LeftCurve3Mirrored", "Puzzle_Key1", "Room1",
         "Room1Mirrored", "Room2", "Room2Mirrored", "SkinnyHallway1",
-        "SkinnyHallway2", "Smalllibrary1", "Squeeze1", "Squeeze2",
+        "SkinnyHallway2", "SmallLibrary1", "Squeeze1", "Squeeze2",
         "TJunc1", "Upstairs1", "WardrobeRoom", "Window1"
     ];
 
