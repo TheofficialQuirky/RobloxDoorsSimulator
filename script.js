@@ -1,4 +1,5 @@
 const lockedRooms = [
+    "Hotel_Reception",
     "Hotel_ChexKey",
     "Hotel_Corner_Keyroom",
     "Hotel_HallwaySideroom1",
@@ -6,6 +7,16 @@ const lockedRooms = [
     "Hotel_Key_LeftCurve3Mirrored",
     "Hotel_Puzzle_Key1"
 ];
+
+const protectedRushRooms = new Set([
+    "Hotel_LibraryEntrance",
+    "Hotel_Library",
+    "Hotel_LibraryExit",
+    "Hotel_PreCourtyard",
+    "Hotel_Courtyard",
+    "Greenhouse_Intermission",
+    "Hotel_EndNew"
+]);
 
 const protectedDoors = new Set([
     48, 49, 50, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
@@ -36,22 +47,20 @@ function generateRun() {
 
     const room0 = document.createElement("div");
     room0.className = "room";
-
     room0.innerHTML = `
         <div class="roomTop lockedTop">0000
             <img src="Lock_icon.svg" class="lockIcon">
         </div>
         <span class="roomName">Hotel_Reception</span>
     `;
-
     map.appendChild(room0);
 
     const rooms = [];
     for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
-        rooms.push({ number: i, type });
+        rooms.push({ number: i, type, entities: [] });
     }
-    
+
     const lockPatterns = [
         { early: 2, late: 1 },
         { early: 2, late: 2 },
@@ -59,28 +68,23 @@ function generateRun() {
         { early: 3, late: 2 },
         { early: 4, late: 1 }
     ];
-    
+
     const lockedCount = Math.floor(Math.random() * 3) + 3;
-    
     const validPatterns = lockPatterns.filter(p => p.early + p.late === lockedCount);
     const chosenPattern = validPatterns[Math.floor(Math.random() * validPatterns.length)];
-    
+
     const lockedPositions = new Set();
-    
+
     while (lockedPositions.size < chosenPattern.early) {
         const pos = Math.floor(Math.random() * 50) + 1;
-        if (!protectedDoors.has(pos)) {
-            lockedPositions.add(pos);
-        }
+        if (!protectedDoors.has(pos)) lockedPositions.add(pos);
     }
-    
+
     while (lockedPositions.size < chosenPattern.early + chosenPattern.late) {
         const pos = Math.floor(Math.random() * 50) + 51;
-        if (!protectedDoors.has(pos)) {
-            lockedPositions.add(pos);
-        }
+        if (!protectedDoors.has(pos)) lockedPositions.add(pos);
     }
-    
+
     lockedPositions.forEach(pos => {
         const lockedType = lockedRooms[Math.floor(Math.random() * lockedRooms.length)];
         rooms[pos - 1].type = lockedType;
@@ -90,7 +94,7 @@ function generateRun() {
         const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
-    
+
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
     rooms[50].type = "Hotel_LibraryExit";
@@ -100,6 +104,22 @@ function generateRun() {
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
 
+    rooms.forEach(room => {
+        const type = room.type;
+
+        if (protectedRushRooms.has(type)) return;
+
+        const isGreenhouseAllowed =
+            type === "Greenhouse_Straight" ||
+            type === "Greenhouse_Intersection";
+
+        const chance = room.number <= 50 ? 0.0666 : 0.10;
+
+        if (Math.random() < chance) {
+            room.entities.push("Rush");
+        }
+    });
+
     rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
@@ -108,11 +128,19 @@ function generateRun() {
         const type = roomData.type;
         const isLocked = lockedRooms.includes(type);
 
+        // Build entity tags
+        let entityHTML = "";
+        roomData.entities.forEach(entity => {
+            entityHTML += `<div class="entityTag">${entity}</div>`;
+        });
+
         room.innerHTML = isLocked
             ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-            <span class="roomName">${type}</span>`
+               <span class="roomName">${type}</span>
+               ${entityHTML}`
             : `<div class="roomTop">${number}</div>
-            <span class="roomName">${type}</span>`;
+               <span class="roomName">${type}</span>
+               ${entityHTML}`;
 
         map.appendChild(room);
     });
