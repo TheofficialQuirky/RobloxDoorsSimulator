@@ -85,7 +85,7 @@ function generateRun() {
 
         room.innerHTML = isLocked
             ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-            <span class="roomName">{type}</span>`
+            <span class="roomName">${type}</span>`
             : `<div class="roomTop">${number}</div>
             <span class="roomName">${type}</span>`;
 
