@@ -31,17 +31,7 @@ function generateRun() {
         "TJunc1", "Upstairs1", "WardrobeRoom", "Window1"
     ];
 
-    const room0 = document.createElement("div");
-    room0.className = "room";
-
-    room0.innerHTML = `
-        <div class="roomTop">0000</div>
-        <span class="roomName">Hotel_Reception</span>
-    `;
-
-    roomsContainer.appendChild(room0);
-
-    for (let i = 1; i < 20; i++) {
+   for (let i = 1; i < 20; i++) {
         const room = document.createElement("div");
         room.className = "room";
 
