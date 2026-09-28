@@ -36,12 +36,14 @@ h1 {
 }
 
 .room {
-    display: inline-block;
-    vertical-align: top;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 
     width: 350px;
     height: 500px;
-    margin-top: 40px;
+    margin: 20px 10px;
 
     background: #4a2f23;
     border: 2px solid #d2b99b;
