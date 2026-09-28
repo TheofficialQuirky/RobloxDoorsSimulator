@@ -108,7 +108,7 @@ function generateRun() {
     const chaseStartMax = 46 - 5;
     let seekChaseStart = Math.floor(Math.random() * (chaseStartMax - chaseStartMin + 1)) + chaseStartMin;
     
-    const seekCrescendoLength = Math.floor(Math.random() * 4) + 2;
+    const seekCrescendoLength = Math.floor(Math.random() * 3) + 3;
     
     let crescendoStart = seekChaseStart - seekCrescendoLength;
     if (crescendoStart < 1) crescendoStart = 1;
