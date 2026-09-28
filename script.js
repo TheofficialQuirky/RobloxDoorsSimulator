@@ -104,22 +104,23 @@ function generateRun() {
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
 
+    // ⭐ FIXED RUSH LOGIC — SKIPS PROTECTED ROOMS
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
-
-    rooms.forEach(room => {
-        const type = room.type;
-
-        if (protectedRushRooms.has(type)) return;
-        
-        if (room.number === nextRushDoor) {
-            room.entities.push("Rush");
-
-            const gap = Math.floor(Math.random() * 4) + 5;  
-            nextRushDoor += gap;
-
-            if (nextRushDoor > 100) nextRushDoor = Infinity;
+    
+    while (nextRushDoor <= 100) {
+        let spawnDoor = nextRushDoor;
+        while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
+            spawnDoor++;
         }
-    });
+        if (spawnDoor <= 100) {
+            rooms[spawnDoor - 1].entities.push("Rush");
+        } else {
+            break;
+        }
+        
+        const gap = Math.floor(Math.random() * 4) + 5;
+        nextRushDoor = spawnDoor + gap;
+    }
 
     rooms.forEach(roomData => {
         const room = document.createElement("div");
