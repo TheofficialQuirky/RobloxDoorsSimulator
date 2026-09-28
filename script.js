@@ -221,6 +221,17 @@ function generateRun() {
             ${entityHTML}
         `;
     }
+
+    if (roomData.seekCrescendo) {
+        room.innerHTML = `
+            <div class="roomTop">
+                ${number}
+                <img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
+            </div>
+            <span class="roomName">${type}</span>
+            ${entityHTML}
+        `;
+    }
     
     map.appendChild(room);
     });
