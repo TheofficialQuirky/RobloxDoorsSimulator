@@ -136,33 +136,37 @@ function generateRun() {
     });
 
     rooms.forEach(roomData => {
-        const room = document.createElement("div");
-        room.className = "room";
+    const room = document.createElement("div");
+    room.className = "room";
 
-        const number = String(roomData.number).padStart(4, "0");
-        const type = roomData.type;
-        const isLocked = lockedRooms.includes(type);
+    const number = String(roomData.number).padStart(4, "0");
+    const type = roomData.type;
+    const isLocked = lockedRooms.includes(type);
 
-        let entityHTML = "";
-        roomData.entities.forEach(entity => {
-            let boxClass = "rushBox";
-            if (entity === "Ambush") boxClass = "ambushBox";
-            if (entity === "Eyes") boxClass = "eyesBox";
-            entityHTML += `
-                <div class="entityBox ${boxClass}">
-                <img src="${entity}image.png" class="entityIcon">
-                </div>
-            `;
-        });
+    let entityHTML = `<div class="roomEntities">`;
 
-        room.innerHTML = isLocked
-            ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-               <span class="roomName">${type}</span>
-               ${entityHTML}`
-            : `<div class="roomTop">${number}</div>
-               <span class="roomName">${type}</span>
-               ${entityHTML}`;
+    roomData.entities.forEach(entity => {
+        let boxClass = "rushBox";
+        if (entity === "Ambush") boxClass = "ambushBox";
+        if (entity === "Eyes") boxClass = "eyesBox";
 
-        map.appendChild(room);
+        entityHTML += `
+            <div class="entityBox ${boxClass}">
+             <img src="${entity}image.png" class="entityIcon">
+             </div>
+        `;
+      });
+    
+    entityHTML += `</div>`;
+    
+    room.innerHTML = isLocked
+        ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
+        <span class="roomName">${type}</span>
+        ${entityHTML}`
+        : `<div class="roomTop">${number}</div>
+        <span class="roomName">${type}</span>
+         ${entityHTML}`;
+
+    map.appendChild(room);
     });
 }
