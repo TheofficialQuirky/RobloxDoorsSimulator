@@ -45,6 +45,7 @@ function generateRun() {
         "Hotel_TJunc1", "Hotel_Upstairs1", "Hotel_WardrobeRoom", "Hotel_Window1"
     ];
 
+    // Room 0000
     const room0 = document.createElement("div");
     room0.className = "room";
     room0.innerHTML = `
@@ -55,12 +56,14 @@ function generateRun() {
     `;
     map.appendChild(room0);
 
+    // Generate rooms 1–100
     const rooms = [];
     for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         rooms.push({ number: i, type, entities: [] });
     }
 
+    // Lock patterns
     const lockPatterns = [
         { early: 2, late: 1 },
         { early: 2, late: 2 },
@@ -90,11 +93,13 @@ function generateRun() {
         rooms[pos - 1].type = lockedType;
     });
 
+    // Greenhouse override
     for (let i = 90; i <= 97; i++) {
         const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
 
+    // Library + Courtyard overrides
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
     rooms[50].type = "Hotel_LibraryExit";
@@ -103,17 +108,21 @@ function generateRun() {
     rooms[89].type = "Greenhouse_Intermission";
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
-    
-    let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
-    
+
+    // ⭐ RUSH + AMBUSH SPAWN LOGIC
+    let nextRushDoor = Math.floor(Math.random() * 4) + 12;
+
     while (nextRushDoor <= 100) {
         let spawnDoor = nextRushDoor;
+
+        // Skip protected rooms
         while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
             spawnDoor++;
         }
+
         if (spawnDoor <= 100) {
             const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
-            
+
             if (Math.random() < ambushChance) {
                 rooms[spawnDoor - 1].entities.push("Ambush");
             } else {
@@ -122,11 +131,12 @@ function generateRun() {
         } else {
             break;
         }
-        
+
         const gap = Math.floor(Math.random() * 4) + 5;
         nextRushDoor = spawnDoor + gap;
     }
 
+    // ⭐ EYES SPAWN LOGIC (3% chance)
     rooms.forEach(room => {
         if (!protectedRushRooms.has(room.type)) {
             if (Math.random() < 0.03) {
@@ -135,6 +145,7 @@ function generateRun() {
         }
     });
 
+    // ⭐ RENDER ROOMS
     rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
@@ -143,17 +154,22 @@ function generateRun() {
         const type = roomData.type;
         const isLocked = lockedRooms.includes(type);
 
-        let entityHTML = "";
+        // Build entity boxes
+        let entityHTML = `<div class="roomEntities">`;
+
         roomData.entities.forEach(entity => {
             let boxClass = "rushBox";
             if (entity === "Ambush") boxClass = "ambushBox";
             if (entity === "Eyes") boxClass = "eyesBox";
+
             entityHTML += `
                 <div class="entityBox ${boxClass}">
-                <img src="${entity}image.png" class="entityIcon">
+                    <img src="${entity}image.png" class="entityIcon">
                 </div>
             `;
         });
+
+        entityHTML += `</div>`;
 
         room.innerHTML = isLocked
             ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
