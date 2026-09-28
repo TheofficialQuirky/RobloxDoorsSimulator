@@ -112,21 +112,6 @@ function generateRun() {
             spawnDoor++;
         }
         
-        const lastCrescendoIndex = crescendoStart + seekCrescendoLength - 1;
-        const lastChaseIndex = seekChaseStart + chaseRooms.length - 1;
-        const afterChase1 = lastChaseIndex + 1;
-        const afterChase2 = lastChaseIndex + 2;
-    
-        if (
-            spawnDoor - 1 === lastCrescendoIndex ||
-            spawnDoor - 1 === afterChase1 ||
-            spawnDoor - 1 === afterChase2
-        ) {
-            const gap = Math.floor(Math.random() * 4) + 5;
-            nextRushDoor = spawnDoor + gap;
-            continue;
-        }
-        
         if (spawnDoor <= 100) {
             const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
             
