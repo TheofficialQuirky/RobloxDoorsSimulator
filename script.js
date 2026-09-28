@@ -154,31 +154,34 @@ function generateRun() {
         const type = roomData.type;
         const isLocked = lockedRooms.includes(type);
 
-        // Build entity boxes
-        let entityHTML = `<div class="roomEntities">`;
+        // Build entity boxes ONLY if there are entities
+        let entityHTML = "";
+        if (roomData.entities.length > 0) {
+            entityHTML += `<div class="roomEntities">`;
 
-        roomData.entities.forEach(entity => {
-            let boxClass = "rushBox";
-            if (entity === "Ambush") boxClass = "ambushBox";
-            if (entity === "Eyes") boxClass = "eyesBox";
+            roomData.entities.forEach(entity => {
+                let boxClass = "rushBox";
+                if (entity === "Ambush") boxClass = "ambushBox";
+                if (entity === "Eyes") boxClass = "eyesBox";
 
-            entityHTML += `
-                <div class="entityBox ${boxClass}">
-                    <img src="${entity}image.png" class="entityIcon">
-                </div>
-            `;
-        });
+                entityHTML += `
+                    <div class="entityBox ${boxClass}">
+                        <img src="${entity}image.png" class="entityIcon">
+                    </div>
+                `;
+             });
 
         entityHTML += `</div>`;
+    }
 
-        room.innerHTML = isLocked
-            ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-               <span class="roomName">${type}</span>
-               ${entityHTML}`
-            : `<div class="roomTop">${number}</div>
-               <span class="roomName">${type}</span>
-               ${entityHTML}`;
+    room.innerHTML = isLocked
+        ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
+           <span class="roomName">${type}</span>
+           ${entityHTML}`
+        : `<div class="roomTop">${number}</div>
+           <span class="roomName">${type}</span>
+           ${entityHTML}`;
 
-        map.appendChild(room);
-    });
+    map.appendChild(room);
+});
 }
