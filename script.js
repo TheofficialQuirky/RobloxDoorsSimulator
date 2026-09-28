@@ -210,7 +210,18 @@ function generateRun() {
         : `<div class="roomTop">${number}</div>
         <span class="roomName">${type}</span>
          ${entityHTML}`;
-
+    
+    if (roomData.seekChase) {
+        room.innerHTML = `
+            <div class="roomTop">
+                ${number}
+                <img src="Seek_Icon.png" class="seekIcon">
+            </div>
+            <span class="roomName">${type}</span>
+            ${entityHTML}
+        `;
+    }
+    
     map.appendChild(room);
     });
 }
