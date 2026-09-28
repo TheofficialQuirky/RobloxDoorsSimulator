@@ -127,6 +127,14 @@ function generateRun() {
         nextRushDoor = spawnDoor + gap;
     }
 
+    rooms.forEach(room => {
+        if (!protectedRushRooms.has(room.type)) {
+            if (Math.random() < 0.03) {
+                room.entities.push("Eyes");
+            }
+        }
+    });
+
     rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
