@@ -129,7 +129,7 @@ function generateRun() {
 
     rooms.forEach(room => {
         if (!protectedRushRooms.has(room.type)) {
-            if (Math.random() < 1) {
+            if (Math.random() < 0.03) {
                 room.entities.push("Eyes");
             }
         }
