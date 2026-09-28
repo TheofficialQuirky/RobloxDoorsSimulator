@@ -129,3 +129,15 @@ h1 {
     width: 48px;
     height: 47px;
 }
+
+.seekIcon {
+    width: 40px;
+    height: 25px;
+    transform: translateY(3px);
+}
+
+.seekCrescendoIcon {
+    width: 40px;
+    height: 25px;
+    transform: translateY(3px)
+}
