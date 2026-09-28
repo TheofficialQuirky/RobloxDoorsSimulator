@@ -103,8 +103,7 @@ function generateRun() {
     rooms[89].type = "Greenhouse_Intermission";
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
-
-    // ⭐ FIXED RUSH LOGIC — SKIPS PROTECTED ROOMS
+    
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
     
     while (nextRushDoor <= 100) {
@@ -113,7 +112,13 @@ function generateRun() {
             spawnDoor++;
         }
         if (spawnDoor <= 100) {
-            rooms[spawnDoor - 1].entities.push("Rush");
+            const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
+            
+            if (Math.random() < ambushChance) {
+                rooms[spawnDoor - 1].entities.push("Ambush");
+            } else {
+                rooms[spawnDoor - 1].entities.push("Rush");
+            }
         } else {
             break;
         }
