@@ -129,7 +129,6 @@ function generateRun() {
         const type = roomData.type;
         const isLocked = lockedRooms.includes(type);
 
-        // Build entity tags
         let entityHTML = "";
         roomData.entities.forEach(entity => {
             entityHTML += `
