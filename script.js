@@ -132,7 +132,6 @@ function generateRun() {
         const roomIndex = seekChaseStart + i - 1;
 
         rooms[roomIndex].type = chaseRooms[i];
-        rooms[roomIndex].entities = [];
         rooms[roomIndex].seekChase = true;
     }
     
@@ -142,6 +141,12 @@ function generateRun() {
         let spawnDoor = nextRushDoor;
         while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
             spawnDoor++;
+        }
+
+        if (spawnDoor <= 100 && rooms[spawnDoor - 1].seekChase) {
+            const gap = Math.floor(Math.random() * 4) + 5;
+            nextRushDoor = spawnDoor + gap;
+             continue;
         }
         
         const lastCrescendoIndex = crescendoStart + seekCrescendoLength - 1;
@@ -176,7 +181,7 @@ function generateRun() {
     }
     
     rooms.forEach(room => {
-        if (!protectedRushRooms.has(room.type)) {
+        if (!protectedRushRooms.has(room.type) && !room.seekChase) {
             if (Math.random() < 0.03) {
                 room.entities.push("Eyes");
             }
