@@ -104,19 +104,20 @@ function generateRun() {
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
 
+    let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
+
     rooms.forEach(room => {
         const type = room.type;
 
         if (protectedRushRooms.has(type)) return;
-
-        const isGreenhouseAllowed =
-            type === "Greenhouse_Straight" ||
-            type === "Greenhouse_Intersection";
-
-        const chance = room.number <= 50 ? 0.0666 : 0.10;
-
-        if (Math.random() < chance) {
+        
+        if (room.number === nextRushDoor) {
             room.entities.push("Rush");
+
+            const gap = Math.floor(Math.random() * 4) + 5;  
+            nextRushDoor += gap;
+
+            if (nextRushDoor > 100) nextRushDoor = Infinity;
         }
     });
 
