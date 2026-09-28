@@ -103,41 +103,6 @@ function generateRun() {
     rooms[89].type = "Greenhouse_Intermission";
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
-
-    const chaseStartMin = 29;
-    const chaseStartMax = 46 - 5;
-    let seekChaseStart = Math.floor(Math.random() * (chaseStartMax - chaseStartMin + 1)) + chaseStartMin;
-    
-    const seekCrescendoLength = Math.floor(Math.random() * 4) + 2;
-    
-    let crescendoStart = seekChaseStart - seekCrescendoLength;
-    if (crescendoStart < 1) crescendoStart = 1;
-    
-    for (let i = 0; i < seekCrescendoLength; i++) {
-        const roomIndex = crescendoStart + i - 1;
-        if (protectedRushRooms.has(rooms[roomIndex].type)) continue;
-
-        rooms[roomIndex].seekCrescendo = true;
-    }
-
-    const chaseRooms = [
-        "Hotel_SeekIntro",
-        "Hotel_SeekChase",
-        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
-        "Hotel_SeekChaseShort1",
-        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
-        "Hotel_SeekChaseFinal"
-    ];
-
-    for (let i = 0; i < chaseRooms.length; i++) {
-        const roomIndex = seekChaseStart + i - 1;
-
-        if (protectedRushRooms.has(rooms[roomIndex].type)) continue;
-
-        rooms[roomIndex].type = chaseRooms[i];
-        rooms[roomIndex].entities = [];
-        rooms[roomIndex].seekChase = true;
-    }
     
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
     
@@ -160,6 +125,38 @@ function generateRun() {
         
         const gap = Math.floor(Math.random() * 4) + 5;
         nextRushDoor = spawnDoor + gap;
+    }
+
+    const chaseStartMin = 29;
+    const chaseStartMax = 46 - 5;
+    let seekChaseStart = Math.floor(Math.random() * (chaseStartMax - chaseStartMin + 1)) + chaseStartMin;
+    
+    const seekCrescendoLength = Math.floor(Math.random() * 4) + 2;
+    
+    let crescendoStart = seekChaseStart - seekCrescendoLength;
+    if (crescendoStart < 1) crescendoStart = 1;
+    
+    for (let i = 0; i < seekCrescendoLength; i++) {
+        const roomIndex = crescendoStart + i - 1;
+
+        rooms[roomIndex].seekCrescendo = true;
+    }
+
+    const chaseRooms = [
+        "Hotel_SeekIntro",
+        "Hotel_SeekChase",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        "Hotel_SeekChaseShort1",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        "Hotel_SeekChaseFinal"
+    ];
+
+    for (let i = 0; i < chaseRooms.length; i++) {
+        const roomIndex = seekChaseStart + i - 1;
+
+        rooms[roomIndex].type = chaseRooms[i];
+        rooms[roomIndex].entities = [];
+        rooms[roomIndex].seekChase = true;
     }
 
     rooms.forEach(room => {
