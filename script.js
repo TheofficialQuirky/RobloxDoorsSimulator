@@ -103,30 +103,6 @@ function generateRun() {
     rooms[89].type = "Greenhouse_Intermission";
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
-    
-    let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
-    
-    while (nextRushDoor <= 100) {
-        let spawnDoor = nextRushDoor;
-        while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
-            spawnDoor++;
-        }
-        
-        if (spawnDoor <= 100) {
-            const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
-            
-            if (Math.random() < ambushChance) {
-                rooms[spawnDoor - 1].entities.push("Ambush");
-            } else {
-                rooms[spawnDoor - 1].entities.push("Rush");
-            }
-        } else {
-            break;
-        }
-        
-        const gap = Math.floor(Math.random() * 4) + 5;
-        nextRushDoor = spawnDoor + gap;
-    }
 
     const chaseStartMin = 29;
     const chaseStartMax = 46 - 5;
@@ -159,7 +135,46 @@ function generateRun() {
         rooms[roomIndex].entities = [];
         rooms[roomIndex].seekChase = true;
     }
-
+    
+    let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
+    
+    while (nextRushDoor <= 100) {
+        let spawnDoor = nextRushDoor;
+        while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
+            spawnDoor++;
+        }
+        
+        const lastCrescendoIndex = crescendoStart + seekCrescendoLength - 1;
+        const lastChaseIndex = seekChaseStart + chaseRooms.length - 1;
+        const afterChase1 = lastChaseIndex + 1;
+        const afterChase2 = lastChaseIndex + 2;
+        
+        if (
+            spawnDoor - 1 === lastCrescendoIndex ||
+            spawnDoor - 1 === afterChase1 ||
+            spawnDoor - 1 === afterChase2
+        ) {
+            const gap = Math.floor(Math.random() * 4) + 5;
+            nextRushDoor = spawnDoor + gap;
+            continue;
+        }
+        
+        if (spawnDoor <= 100) {
+            const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
+            
+            if (Math.random() < ambushChance) {
+                rooms[spawnDoor - 1].entities.push("Ambush");
+            } else {
+                rooms[spawnDoor - 1].entities.push("Rush");
+            }
+        } else {
+            break;
+        }
+        
+        const gap = Math.floor(Math.random() * 4) + 5;
+        nextRushDoor = spawnDoor + gap;
+    }
+    
     rooms.forEach(room => {
         if (!protectedRushRooms.has(room.type)) {
             if (Math.random() < 0.03) {
