@@ -137,8 +137,9 @@ function generateRun() {
 
         let entityHTML = "";
         roomData.entities.forEach(entity => {
+            const boxClass = entity === "Ambush" ? "ambushBox" : "rushBox";
             entityHTML += `
-                <div class="entityBox">
+                <div class="entityBox ${boxClass}">
                 <img src="${entity}image.png" class="entityIcon">
                 </div>
             `;
