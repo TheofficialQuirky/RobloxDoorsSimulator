@@ -82,8 +82,6 @@ h1 {
 }
 
 .entityIcon {
-    width: 48px;
-    height: auto;
     pointer-events: none;
 }
 
@@ -115,4 +113,19 @@ h1 {
 
 .eyesBox {
     background: #845ee6;
+}
+
+.rushIcon {
+    width: 40px;
+    height: 40px;
+}
+
+.ambushIcon {
+    width: 48px;
+    height: 48px;
+}
+
+.eyesIcon {
+    width: 60px;
+    height: 60px;
 }
