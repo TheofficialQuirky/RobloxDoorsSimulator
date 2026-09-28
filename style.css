@@ -82,7 +82,7 @@ h1 {
 }
 
 .entityIcon {
-    width: 24px;
+    width: 48px;
     height: auto;
     pointer-events: none;
 }
@@ -97,8 +97,8 @@ h1 {
 }
 
 .entityBox {
-    width: 36px;
-    height: 36px;
+    width: 60px;
+    height: 60px;
     border-radius: 8px;
     display: flex;
     align-items: center;
