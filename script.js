@@ -149,7 +149,7 @@ function generateRun() {
              continue;
         }
         
-        const lastCrescendoIndex = crescendoStart + seekCrescendoLength - 1;
+        const lastCrescendoIndex = crescendoStart + seekCrescendoLength - 2;
         const lastChaseIndex = seekChaseStart + chaseRooms.length - 1;
         const afterChase1 = lastChaseIndex + 1;
         const afterChase2 = lastChaseIndex + 2;
