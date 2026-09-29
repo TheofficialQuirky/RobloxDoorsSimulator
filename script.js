@@ -215,6 +215,8 @@ function generateRun() {
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
         
+        if (room.type.startsWith("Greenhouse_")) return;
+        
         if (Math.random() < 0.0666) {
             const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
             room.type = newType;
