@@ -115,6 +115,10 @@ h1 {
     background: #845ee6;
 }
 
+.dupeBox {
+    background: #200000;
+}
+
 .rushIcon {
     width: 40px;
     height: 40px;
@@ -128,6 +132,11 @@ h1 {
 .eyesIcon {
     width: 48px;
     height: 47px;
+}
+
+.dupeIcon {
+    width: 40px;
+    height: 40px;
 }
 
 .seekIcon {
