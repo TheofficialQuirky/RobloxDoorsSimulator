@@ -216,7 +216,7 @@ function generateRun() {
 
         if (!dupeEligibleTypes.has(room.type)) return;
 
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.3333) {
             room.entities.push("Dupe");
         }
     });
