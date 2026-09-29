@@ -210,12 +210,10 @@ function generateRun() {
             return;
         }
         
-        if (room.number < 3) return;
+        if (room.number < 3 || room.number > 90) return;
         
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
-        
-        if (room.type.startsWith("Greenhouse_")) return;
         
         if (Math.random() < 0.0666) {
             const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
