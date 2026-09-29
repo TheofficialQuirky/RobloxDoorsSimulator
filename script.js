@@ -201,8 +201,9 @@ function generateRun() {
     }
     
     rooms.forEach(room => {
+        const eyesChance = room.number > 50 ? 0.0666 : 0.03;
         if (!protectedRooms.has(room.type) && !room.seekChase) {
-            if (Math.random() < 0.03) {
+            if (Math.random() < eyesChance) {
                 room.entities.push("Eyes");
             }
         }
