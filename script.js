@@ -8,7 +8,7 @@ const lockedRooms = [
     "Hotel_Puzzle_Key1"
 ];
 
-const protectedRushRooms = new Set([
+const protectedRooms = new Set([
     "Hotel_LibraryEntrance",
     "Hotel_Library",
     "Hotel_LibraryExit",
@@ -16,6 +16,22 @@ const protectedRushRooms = new Set([
     "Hotel_Courtyard",
     "Greenhouse_Intermission",
     "Hotel_EndNew"
+]);
+
+const dupeEligibleTypes = new Set([
+    "Hotel_AltDoors1",
+    "Hotel_AltDoors2",
+    "Hotel_AltDoors3",
+    "Hotel_Chex1",
+    "Hotel_ChexKey",
+    "Hotel_Circle1",
+    "Hotel_Corner_Keyroom",
+    "Hotel_Downstairs1",
+    "Hotel_Downstairs2",
+    "Hotel_Elevators2",
+    "Hotel_Elevators3",
+    "Hotel_TJunc1",
+    "Hotel_Upstairs1"
 ]);
 
 const protectedDoors = new Set([
@@ -139,7 +155,7 @@ function generateRun() {
     
     while (nextRushDoor <= 100) {
         let spawnDoor = nextRushDoor;
-        while (spawnDoor <= 100 && protectedRushRooms.has(rooms[spawnDoor - 1].type)) {
+        while (spawnDoor <= 100 && protectedRooms.has(rooms[spawnDoor - 1].type)) {
             spawnDoor++;
         }
 
@@ -181,10 +197,27 @@ function generateRun() {
     }
     
     rooms.forEach(room => {
-        if (!protectedRushRooms.has(room.type) && !room.seekChase) {
+        if (!protectedRooms.has(room.type) && !room.seekChase) {
             if (Math.random() < 0.03) {
                 room.entities.push("Eyes");
             }
+        }
+    });
+
+    rooms.forEach(room => {
+        if (room.type === "Greenhouse_Intersection") {
+            room.entities.push("Dupe");
+            return;
+        }
+        if (room.number < 3) return;
+
+        if (protectedRooms.has(room.type)) return;
+        if (room.seekChase) return;
+
+        if (!dupeEligibleTypes.has(room.type)) return;
+
+        if (Math.random() < 0.0666) {
+            room.entities.push("Dupe");
         }
     });
 
@@ -212,6 +245,11 @@ function generateRun() {
             iconClass = "eyesIcon";
         }
 
+        if (entity === "Dupe") {
+            boxClass = "dupeBox";
+            iconClass = "dupeIcon";
+        }
+        
         entityHTML += `
             <div class="entityBox ${boxClass}">
                 <img src="${entity}image.png" class="${iconClass}">
