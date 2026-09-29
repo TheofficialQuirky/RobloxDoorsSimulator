@@ -18,7 +18,7 @@ const protectedRooms = new Set([
     "Hotel_EndNew"
 ]);
 
-const dupeEligibleTypes = new Set([
+const dupeEligibleTypes = [
     "Hotel_AltDoors1",
     "Hotel_AltDoors2",
     "Hotel_AltDoors3",
@@ -32,7 +32,7 @@ const dupeEligibleTypes = new Set([
     "Hotel_Elevators3",
     "Hotel_TJunc1",
     "Hotel_Upstairs1"
-]);
+];
 
 const protectedDoors = new Set([
     48, 49, 50, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
@@ -209,14 +209,16 @@ function generateRun() {
             room.entities.push("Dupe");
             return;
         }
+        
         if (room.number < 3) return;
-
+        
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
-
-        if (!dupeEligibleTypes.has(room.type)) return;
-
-        if (Math.random() < 0.3333) {
+        
+        if (Math.random() < 0.0666) {
+            const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
+            room.type = newType;
+            
             room.entities.push("Dupe");
         }
     });
