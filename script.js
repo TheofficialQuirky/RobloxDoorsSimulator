@@ -150,8 +150,9 @@ function generateRun() {
         rooms[roomIndex].type = chaseRooms[i];
         rooms[roomIndex].seekChase = true;
     }
-    
-    let nextRushDoor = Math.floor(Math.random() * 4) + 12;  
+
+    let firstRecurringSpawnDoor = null;
+    let nextRushDoor = Math.floor(Math.random() * 4) + 12;
     
     while (nextRushDoor <= 100) {
         let spawnDoor = nextRushDoor;
@@ -188,6 +189,9 @@ function generateRun() {
             } else {
                 rooms[spawnDoor - 1].entities.push("Rush");
             }
+            if (firstRecurringSpawnDoor === null) {
+                firstRecurringSpawnDoor = spawnDoor;
+            }
         } else {
             break;
         }
@@ -210,8 +214,7 @@ function generateRun() {
             return;
         }
         
-        if (room.number < 3 || room.number > 90) return;
-        
+        if (firstRecurringSpawnDoor === null || room.number <= firstRecurringSpawnDoor || room.number > 90) return;
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
         
