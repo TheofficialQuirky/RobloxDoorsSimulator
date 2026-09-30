@@ -1,7 +1,6 @@
 // Defining room sets
 
 const lockedRooms = [
-    "Hotel_Reception",
     "Hotel_ChexKey",
     "Hotel_Corner_Keyroom",
     "Hotel_HallwaySideroom1",
