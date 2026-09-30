@@ -249,6 +249,8 @@ function generateRun() {
         const gap = Math.floor(Math.random() * 4) + 5;
         nextRushDoor = spawnDoor + gap;
     }
+
+    // Eyes
     
     rooms.forEach(room => {
         const eyesChance = room.number > 50 ? 0.0666 : 0.03;
@@ -258,6 +260,8 @@ function generateRun() {
             }
         }
     });
+
+    // Dupe
 
     rooms.forEach(room => {
         if (room.type === "Greenhouse_Intersection") {
@@ -279,6 +283,8 @@ function generateRun() {
         }
     });
 
+    // Room appearance on map
+    
     rooms.forEach(roomData => {
     const room = document.createElement("div");
     room.className = "room";
