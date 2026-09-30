@@ -1,3 +1,5 @@
+// Defining room sets
+
 const lockedRooms = [
     "Hotel_Reception",
     "Hotel_ChexKey",
@@ -38,11 +40,15 @@ const protectedDoors = new Set([
     48, 49, 50, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 ]);
 
+// Room generation
+
 document.getElementById("generateBtn").addEventListener("click", generateRun);
 
 function generateRun() {
     const map = document.getElementById("map");
     map.innerHTML = "";
+
+    // Standard generation
 
     const roomTypes = [
         "Hotel_AltDoors1", "Hotel_AltDoors2", "Hotel_AltDoors3", "Hotel_AltHallway1",
@@ -77,6 +83,8 @@ function generateRun() {
         rooms.push({ number: i, type, entities: [] });
     }
 
+    // Locked room patterns
+
     const lockPatterns = [
         { early: 2, late: 1 },
         { early: 2, late: 2 },
@@ -106,10 +114,14 @@ function generateRun() {
         rooms[pos - 1].type = lockedType;
     });
 
+    // Greenhouse generation
+
     for (let i = 90; i <= 97; i++) {
         const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
+
+    // Fixed rooms
 
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
