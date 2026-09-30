@@ -120,6 +120,8 @@ function generateRun() {
     rooms[98].type = "Greenhouse_Intermission";
     rooms[99].type = "Hotel_EndNew";
 
+    // First Seek chase
+    
     const chaseStartMin = 29;
     const chaseStartMax = 46 - 5;
     let seekChaseStart = Math.floor(Math.random() * (chaseStartMax - chaseStartMin + 1)) + chaseStartMin;
@@ -151,6 +153,42 @@ function generateRun() {
         rooms[roomIndex].seekChase = true;
     }
 
+    // Second Seek chase
+    
+    const chase2StartMin = 69;
+    const chase2StartMax = 85 - 8;
+    let seekChase2Start = Math.floor(Math.random() * (chase2StartMax - chase2StartMin + 1)) + chase2StartMin;
+
+    const seekCrescendo2Length = Math.floor(Math.random() * 3) + 3;
+    
+    let crescendo2Start = seekChase2Start - seekCrescendo2Length;
+    if (crescendo2Start < 1) crescendo2Start = 1;
+    
+    for (let i = 0; i < seekCrescendo2Length; i++) {
+        const roomIndex = crescendo2Start + i - 1;
+        rooms[roomIndex].seekCrescendo = true;
+    }
+    
+    const chase2Rooms = [
+        "Hotel_SeekIntro",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        Math.random() < 0.5 ? "Hotel_SeekChaseIntersection" : "Hotel_SeekChaseIntersectionAlt",
+        "Hotel_SeekChaseFinal"
+    ];
+    
+    for (let i = 0; i < chase2Rooms.length; i++) {
+        const roomIndex = seekChase2Start + i - 1;
+
+        rooms[roomIndex].type = chase2Rooms[i];
+        rooms[roomIndex].seekChase = true;
+    }
+
+    // Rush and Ambush
+    
     let firstRecurringSpawnDoor = null;
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
     
