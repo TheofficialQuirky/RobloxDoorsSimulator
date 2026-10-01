@@ -274,7 +274,7 @@ function generateRun() {
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
         
-        const dupeChance = room.number > 50 ? 0.10 : room.number / 300;
+        const dupeChance = room.number > 50 ? 0.1333 : room.number / 300;
         
         if (Math.random() < dupeChance) {
             const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
