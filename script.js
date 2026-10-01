@@ -200,7 +200,7 @@ function generateRun() {
 
     // Rush and Ambush
     
-    let firstRecurringSpawnDoor = null;
+    // let firstRecurringSpawnDoor = null;
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
     
     while (nextRushDoor <= 100) {
@@ -238,9 +238,9 @@ function generateRun() {
             } else {
                 rooms[spawnDoor - 1].entities.push("Rush");
             }
-            if (firstRecurringSpawnDoor === null) {
-                firstRecurringSpawnDoor = spawnDoor;
-            }
+            // if (firstRecurringSpawnDoor === null) {
+                // firstRecurringSpawnDoor = spawnDoor;
+            // }
         } else {
             break;
         }
@@ -268,11 +268,14 @@ function generateRun() {
             return;
         }
         
-        if (firstRecurringSpawnDoor === null || room.number <= firstRecurringSpawnDoor || room.number > 90) return;
+        // if (firstRecurringSpawnDoor === null || room.number <= firstRecurringSpawnDoor || room.number > 90) return;
+        if (room.number < 3 || room.number > 90) return;
+        
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
         
-        const dupeChance = room.number > 50 ? 0.10 : 0.0666;
+        // const dupeChance = room.number > 50 ? 0.10 : 0.0666;
+        const dupeChance = room.number / 300;
         
         if (Math.random() < dupeChance) {
             const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
