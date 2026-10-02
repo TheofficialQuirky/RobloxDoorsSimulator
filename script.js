@@ -262,6 +262,8 @@ function generateRun() {
 
     // Dupe
 
+    let earlyDupeCount = 0;
+    
     rooms.forEach(room => {
         if (room.type === "Greenhouse_Intersection") {
             room.entities.push("Dupe");
@@ -281,8 +283,32 @@ function generateRun() {
             room.type = newType;
             
             room.entities.push("Dupe");
+            if (room.number < 50) earlyDupeCount++;
         }
+
     });
+
+    if (earlyDupeCount < 2) {
+        const needed = 2 - earlyDupeCount;
+        
+        for (let i = 0; i < needed; i++) {
+            const candidates = rooms.filter(room =>
+                room.number >= 3 &&
+                room.number < 50 &&
+                !protectedRooms.has(room.type) &&
+                !room.seekChase
+            );
+
+            if (candidates.length === 0) break;
+        
+            const room = candidates[Math.floor(Math.random() * candidates.length)];
+        
+            const newType = dupeEligibleTypes[Math.floor(Math.random() * dupeEligibleTypes.length)];
+            room.type = newType;
+
+            room.entities.push("Dupe");
+        }
+    }
 
     // Room appearance on map
     
