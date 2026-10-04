@@ -1,3 +1,93 @@
+// Room directions
+
+const roomDirections = {
+    "Hotel_Reception": ["Straight"],
+    "Hotel_SeekIntro": ["Straight"],
+    "Hotel_SeekChase": ["Straight"],
+    "Hotel_SeekChaseShort1": ["Straight"],
+    "Hotel_SeekChaseFinal": ["Straight"],
+    "Hotel_LibraryEntrance": ["Right"],
+    "Hotel_Library": ["Straight"],
+    "Hotel_LibraryExit": ["Straight"],
+    "Hotel_JeffShopEntrance": ["Straight"],
+    "Hotel_JeffShop": ["Straight"],
+    "Hotel_PreInfirmary": ["Straight"],
+    "Hotel_Infirmary": ["Straight"],
+    "Hotel_PreCourtyard": ["Straight"],
+    "Hotel_Courtyard": ["Straight"],
+    "Hotel_EndNew": ["N/A"],
+    "Hotel_Puzzle_Key1": ["Straight"],
+    "Hotel_ChexKey": ["Left", "Straight", "Right"],
+    "Hotel_Key_LeftCurve3": ["Left"],
+    "Hotel_Key_LeftCurve3Mirrored": ["Right"],
+    "Hotel_Corner_Keyroom": ["Left", "Straight", "Right"],
+    "Hotel_HallwaySideroom1": ["Straight"],
+    "Hotel_AltDoors1": ["Straight"],
+    "Hotel_AltDoors2": ["Straight"],
+    "Hotel_AltDoors3": ["Straight"],
+    "Hotel_AltHallway1": ["Left"],
+    "Hotel_AltHallway1Mirrored": ["Right"],
+    "Hotel_Backroom1": ["Straight"],
+    "Hotel_Backroom2": ["Straight"],
+    "Hotel_Backroom3": ["Straight"],
+    "Hotel_Backroom4": ["Left"],
+    "Hotel_Backroom5": ["Right"],
+    "Hotel_Backroom6": ["Straight"],
+    "Hotel_Backroom7": ["Straight"],
+    "Hotel_Backroom8": ["Straight"],
+    "Hotel_CellarGate1": ["Straight"],
+    "Hotel_Chex1": ["Left", "Straight", "Right"],
+    "Hotel_Circle1": ["Left", "Straight", "Right"],
+    "Hotel_CrouchHallway1": ["Straight"],
+    "Hotel_Curve1": ["Straight"],
+    "Hotel_Curve1Mirrored": ["Straight"],
+    "Hotel_Curve2": ["Straight"],
+    "Hotel_Curve2Mirrored": ["Straight"],
+    "Hotel_Downstairs1": ["Left", "Straight", "Straight", "Right"],
+    "Hotel_Downstairs2": ["Left", "Straight", "Straight", "Right"],
+    "Hotel_Elevators1": ["Straight"],
+    "Hotel_Elevators2": ["Straight"],
+    "Hotel_Elevators3": ["Straight"],
+    "Hotel_Hallway1": ["Straight"],
+    "Hotel_Hallway2": ["Straight"],
+    "Hotel_Hallway3": ["Straight"],
+    "Hotel_Hallway4": ["Straight"],
+    "Hotel_Hallway5": ["Straight"],
+    "Hotel_Hallway6": ["Straight"],
+    "Hotel_HallwayCorner1": ["Left", "Right"],
+    "Hotel_HallwayCorner2": ["Left", "Right"],
+    "Hotel_HallwayCorner3": ["Left", "Right"],
+    "Hotel_HallwayCorner4": ["Left", "Right"],
+    "Hotel_HallwayCornerOffice": ["Right"],
+    "Hotel_HallwayCornerOfficeMirrored": ["Left"],
+    "Hotel_HallwayLong1": ["Straight"],
+    "Hotel_Room1": ["Straight"],
+    "Hotel_Room1Mirrored": ["Straight"],
+    "Hotel_Room2": ["Straight"],
+    "Hotel_Room2Mirrored": ["Straight"],
+    "Hotel_SeekChaseIntersection": ["Left", "Straight", "Right"],
+    "Hotel_SeekChaseIntersectionAlt": ["Left", "Straight", "Right"],
+    "Hotel_SkinnyHallway1": ["Straight"],
+    "Hotel_SkinnyHallway2": ["Straight"],
+    "Hotel_SmallLibrary1": ["Straight"],
+    "Hotel_SmallLibrary1Mirrored": ["Straight"],
+    "Hotel_Squeeze1": ["Straight"],
+    "Hotel_Squeeze2": ["Straight"],
+    "Hotel_TJunc1": ["Left", "Right"],
+    "Hotel_Upstairs1": ["Straight"],
+    "Hotel_WardrobeRoom": ["Straight"],
+    "Hotel_Window1": ["Straight"],
+    "Greenhouse_Intermission": ["Straight"],
+    "Greenhouse_Intersection": ["Left", "Straight", "Right"],
+    "Greenhouse_Straight": ["Straight"]
+};
+
+function pickDirection(roomType) {
+    const dirs = roomDirections[roomType];
+    if (!dirs || dirs[0] === "N/A") return null;
+    return dirs[Math.floor(Math.random() * dirs.length)];
+}
+
 // Defining room sets
 
 const lockedRooms = [
@@ -310,76 +400,106 @@ function generateRun() {
         }
     }
 
+    // Mapping
+    
+    let x = 0;
+    let y = 0;
+    let dir = { x: 1, y: 0 }; // start facing right
+    
+    function turnLeft() {
+        dir = { x: -dir.y, y: dir.x };
+    }
+
+    function turnRight() {
+        dir = { x: dir.y, y: -dir.x };
+    }
+
+    rooms.forEach(room => {
+        const direction = pickDirection(room.type);
+
+        if (direction === "Left") turnLeft();
+        else if (direction === "Right") turnRight();
+    
+        x += dir.x;
+        y += dir.y;
+    
+        room.mapX = x;
+        room.mapY = y;
+    });
+    
     // Room appearance on map
     
     rooms.forEach(roomData => {
-    const room = document.createElement("div");
-    room.className = "room";
+        const room = document.createElement("div");
+        room.className = "room";
 
-    const number = String(roomData.number).padStart(4, "0");
-    const type = roomData.type;
-    const isLocked = lockedRooms.includes(type);
+        room.style.left = `${roomData.mapX * 50}px`;
+        room.style.top = `${roomData.mapY * 50}px`;
+    
+        const number = String(roomData.number).padStart(4, "0");
+        const type = roomData.type;
+        const isLocked = lockedRooms.includes(type);
+    
+        let entityHTML = `<div class="roomEntities">`;
+    
+        roomData.entities.forEach(entity => {
+            let boxClass = "rushBox";
+            let iconClass = "rushIcon";
+    
+            if (entity === "Ambush") {
+                boxClass = "ambushBox";
+                iconClass = "ambushIcon";
+            }
 
-    let entityHTML = `<div class="roomEntities">`;
+            if (entity === "Eyes") {
+                boxClass = "eyesBox";
+                iconClass = "eyesIcon";
+            }
 
-    roomData.entities.forEach(entity => {
-        let boxClass = "rushBox";
-        let iconClass = "rushIcon";
-
-        if (entity === "Ambush") {
-            boxClass = "ambushBox";
-            iconClass = "ambushIcon";
+            if (entity === "Dupe") {
+                boxClass = "dupeBox";
+                iconClass = "dupeIcon";
+            }
+            
+            entityHTML += `
+                <div class="entityBox ${boxClass}">
+                    <img src="${entity}image.png" class="${iconClass}">
+                </div>
+            `;
+        });
+        
+        entityHTML += `</div>`;
+        
+        room.innerHTML = isLocked
+            ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
+            <span class="roomName">${type}</span>
+            ${entityHTML}`
+            : `<div class="roomTop">${number}</div>
+            <span class="roomName">${type}</span>
+             ${entityHTML}`;
+        
+        if (roomData.seekChase) {
+            room.innerHTML = `
+                <div class="roomTop">
+                    ${number}
+                    <img src="Seek_Icon.png" class="seekIcon">
+                </div>
+                <span class="roomName">${type}</span>
+                ${entityHTML}
+            `;
         }
 
-        if (entity === "Eyes") {
-            boxClass = "eyesBox";
-            iconClass = "eyesIcon";
-        }
-
-        if (entity === "Dupe") {
-            boxClass = "dupeBox";
-            iconClass = "dupeIcon";
+        if (roomData.seekCrescendo) {
+            room.innerHTML = `
+                <div class="roomTop">
+                    ${number}
+                    <img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
+                </div>
+                <span class="roomName">${type}</span>
+                ${entityHTML}
+            `;
         }
         
-        entityHTML += `
-            <div class="entityBox ${boxClass}">
-                <img src="${entity}image.png" class="${iconClass}">
-            </div>
-        `;
-    });
-    
-    entityHTML += `</div>`;
-    
-    room.innerHTML = isLocked
-        ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-        <span class="roomName">${type}</span>
-        ${entityHTML}`
-        : `<div class="roomTop">${number}</div>
-        <span class="roomName">${type}</span>
-         ${entityHTML}`;
-    
-    if (roomData.seekChase) {
-        room.innerHTML = `
-            <div class="roomTop">
-                ${number}
-                <img src="Seek_Icon.png" class="seekIcon">
-            </div>
-            <span class="roomName">${type}</span>
-            ${entityHTML}
-        `;
-    }
-
-    if (roomData.seekCrescendo) {
-        room.innerHTML = `
-            <div class="roomTop">
-                ${number}
-                <img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
-            </div>
-            <span class="roomName">${type}</span>
-            ${entityHTML}
-        `;
-    }
-    
-    map.appendChild(room);
+        map.appendChild(room);
     });
 }
