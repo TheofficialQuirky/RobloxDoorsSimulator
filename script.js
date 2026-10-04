@@ -433,8 +433,8 @@ function generateRun() {
         const room = document.createElement("div");
         room.className = "room";
 
-        room.style.left = `${roomData.mapX * 50}px`;
-        room.style.top = `${roomData.mapY * 50}px`;
+        room.style.left = `${roomData.mapX * 250}px`;
+        room.style.top = `${roomData.mapY * 250}px`;
     
         const number = String(roomData.number).padStart(4, "0");
         const type = roomData.type;
