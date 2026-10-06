@@ -83,6 +83,18 @@ function generateRun() {
         rooms.push({ number: i, type, entities: [] });
     }
 
+    // Fixed rooms
+
+    rooms[48].type = "Hotel_LibraryEntrance";
+    rooms[49].type = "Hotel_Library";
+    rooms[50].type = "Hotel_LibraryExit";
+    rooms[59].type = "Hotel_ArchivesEntrance";
+    rooms[87].type = "Hotel_PreCourtyard";
+    rooms[88].type = "Hotel_Courtyard";
+    rooms[89].type = "Greenhouse_Intermission";
+    rooms[98].type = "Greenhouse_Intermission";
+    rooms[99].type = "Hotel_EndNew";
+
     // Locked room patterns
 
     const lockPatterns = [
@@ -101,12 +113,12 @@ function generateRun() {
 
     while (lockedPositions.size < chosenPattern.early) {
         const pos = Math.floor(Math.random() * 50) + 1;
-        if (!protectedDoors.has(pos)) lockedPositions.add(pos);
+        if (!protectedRooms.has(rooms[pos - 1].type)) lockedPositions.add(pos);
     }
 
     while (lockedPositions.size < chosenPattern.early + chosenPattern.late) {
         const pos = Math.floor(Math.random() * 50) + 51;
-        if (!protectedDoors.has(pos)) lockedPositions.add(pos);
+        if (!protectedRooms.has(rooms[pos - 1].type)) lockedPositions.add(pos);
     }
 
     lockedPositions.forEach(pos => {
@@ -120,18 +132,6 @@ function generateRun() {
         const greenhouseTypes = ["Greenhouse_Straight", "Greenhouse_Intersection"];
         rooms[i].type = greenhouseTypes[Math.floor(Math.random() * greenhouseTypes.length)];
     }
-
-    // Fixed rooms
-
-    rooms[48].type = "Hotel_LibraryEntrance";
-    rooms[49].type = "Hotel_Library";
-    rooms[50].type = "Hotel_LibraryExit";
-    rooms[59].type = "Hotel_ArchivesEntrance";
-    rooms[87].type = "Hotel_PreCourtyard";
-    rooms[88].type = "Hotel_Courtyard";
-    rooms[89].type = "Greenhouse_Intermission";
-    rooms[98].type = "Greenhouse_Intermission";
-    rooms[99].type = "Hotel_EndNew";
 
     // First Seek chase
     
