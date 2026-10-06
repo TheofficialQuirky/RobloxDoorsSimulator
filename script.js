@@ -36,7 +36,7 @@ const dupeEligibleTypes = [
     "Hotel_Upstairs1"
 ];
 
-const protectedDoors = new Set([
+const protectedRushDoors = new Set([
     48, 49, 50, 58, 59, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 ]);
 
@@ -232,7 +232,7 @@ function generateRun() {
             continue;
         }
         
-        if (spawnDoor <= 100 && !protectedDoors.has(spawnDoor)) {
+        if (spawnDoor <= 100 && !protectedRushDoors.has(spawnDoor)) {
             const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
 
             rooms[spawnDoor - 1].entities.push(
