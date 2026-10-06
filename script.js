@@ -13,6 +13,7 @@ const protectedRooms = new Set([
     "Hotel_LibraryEntrance",
     "Hotel_Library",
     "Hotel_LibraryExit",
+    "Hotel_ArchivesEntrance",
     "Hotel_PreCourtyard",
     "Hotel_Courtyard",
     "Greenhouse_Intermission",
