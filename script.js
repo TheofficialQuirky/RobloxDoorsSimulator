@@ -37,7 +37,7 @@ const dupeEligibleTypes = [
 ];
 
 const protectedDoors = new Set([
-    48, 49, 50, 59, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
+    48, 49, 50, 58, 59, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 ]);
 
 // Room generation
