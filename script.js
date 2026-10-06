@@ -36,7 +36,7 @@ const dupeEligibleTypes = [
 ];
 
 const protectedDoors = new Set([
-    48, 49, 50, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
+    48, 49, 50, 59, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 ]);
 
 // Room generation
@@ -125,6 +125,7 @@ function generateRun() {
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
     rooms[50].type = "Hotel_LibraryExit";
+    rooms[59].type = "Hotel_ArchivesEntrance";
     rooms[87].type = "Hotel_PreCourtyard";
     rooms[88].type = "Hotel_Courtyard";
     rooms[89].type = "Greenhouse_Intermission";
