@@ -232,17 +232,17 @@ function generateRun() {
             continue;
         }
         
-        if (spawnDoor <= 100) {
+        if (spawnDoor <= 100 && !protectedDoors.has(spawnDoor)) {
             const ambushChance = spawnDoor <= 50 ? 0.03 : 0.05;
+
+            rooms[spawnDoor - 1].entities.push(
+                Math.random() < ambushChance ? "Ambush" : "Rush"
+            );
             
-            if (Math.random() < ambushChance) {
-                rooms[spawnDoor - 1].entities.push("Ambush");
-            } else {
-                rooms[spawnDoor - 1].entities.push("Rush");
-            }
             // if (firstRecurringSpawnDoor === null) {
                 // firstRecurringSpawnDoor = spawnDoor;
             // }
+            
         } else {
             break;
         }
