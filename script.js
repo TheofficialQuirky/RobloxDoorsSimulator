@@ -62,7 +62,7 @@ function generateRun() {
         "Hotel_Hallway4", "Hotel_Hallway5", "Hotel_Hallway6", "Hotel_HallwayCorner1",
         "Hotel_HallwayCorner2", "Hotel_HallwayCorner3", "Hotel_HallwayCorner4",
         "Hotel_HallwayCornerOffice", "Hotel_HallwayCornerOfficeMirrored",
-        "Hotel_NewHallway1", "Hotel_NewHallway1Mirrored",
+        "Hotel_NewHallway1", "Hotel_NewHallway1-Mirrored",
         "Hotel_Room1Mirrored", "Hotel_Room2", "Hotel_Room2Mirrored", "Hotel_SkinnyHallway1",
         "Hotel_SkinnyHallway2", "Hotel_SmallLibrary1", "Hotel_Squeeze1", "Hotel_Squeeze2",
         "Hotel_TJunc1", "Hotel_Upstairs1", "Hotel_WardrobeRoom", "Hotel_Window1",
