@@ -64,7 +64,8 @@ function generateRun() {
         "Hotel_HallwayCornerOffice", "Hotel_HallwayCornerOfficeMirrored",
         "Hotel_Room1Mirrored", "Hotel_Room2", "Hotel_Room2Mirrored", "Hotel_SkinnyHallway1",
         "Hotel_SkinnyHallway2", "Hotel_SmallLibrary1", "Hotel_Squeeze1", "Hotel_Squeeze2",
-        "Hotel_TJunc1", "Hotel_Upstairs1", "Hotel_WardrobeRoom", "Hotel_Window1"
+        "Hotel_TJunc1", "Hotel_Upstairs1", "Hotel_WardrobeRoom", "Hotel_Window1",
+        "Hotel_Window2", "Hotel_Window3"
     ];
 
     const room0 = document.createElement("div");
