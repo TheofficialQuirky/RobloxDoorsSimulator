@@ -82,7 +82,10 @@ function generateRun() {
     const rooms = [];
     for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
-        rooms.push({ number: i, type, entities: [] });
+        const darknessChance = 0.004 * i;
+        const isDark = Math.random() < darknessChance;
+
+        rooms.push({ number: i, type, entities: [], dark: isDark });
     }
 
     // Fixed rooms
@@ -319,6 +322,10 @@ function generateRun() {
     rooms.forEach(roomData => {
         const room = document.createElement("div");
         room.className = "room";
+
+        if (roomData.dark) {
+            room.style.backgroundColor = "#000000"; // black
+        }
     
         const number = String(roomData.number).padStart(4, "0");
         const type = roomData.type;
