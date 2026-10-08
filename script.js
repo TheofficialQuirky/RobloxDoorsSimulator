@@ -84,6 +84,14 @@ function generateRun() {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         const darknessChance = 0.004 * i;
         const isDark = Math.random() < darknessChance;
+        
+        if (protectedRooms.has(type)) {
+            isDark = false;
+        }
+        
+        if (rooms[i - 1].seekChase) {
+            isDark = false;
+        }
 
         rooms.push({ number: i, type, entities: [], dark: isDark });
     }
