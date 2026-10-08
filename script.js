@@ -334,7 +334,7 @@ function generateRun() {
         room.className = "room";
 
         if (roomData.dark) {
-            room.style.backgroundColor = "#000000"; // black
+            room.style.backgroundColor = "#111111";
         }
     
         const number = String(roomData.number).padStart(4, "0");
