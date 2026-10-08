@@ -88,10 +88,6 @@ function generateRun() {
         if (protectedRooms.has(type)) {
             isDark = false;
         }
-        
-        if (rooms[i - 1].seekChase) {
-            isDark = false;
-        }
 
         rooms.push({ number: i, type, entities: [], dark: isDark });
     }
@@ -212,6 +208,12 @@ function generateRun() {
         rooms[roomIndex].type = chase2Rooms[i];
         rooms[roomIndex].seekChase = true;
     }
+
+    rooms.forEach(room => {
+        if (room.seekChase) {
+            room.dark = false;
+        }
+    });
 
     // Rush and Ambush
     
