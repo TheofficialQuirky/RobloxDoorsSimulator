@@ -217,7 +217,6 @@ function generateRun() {
 
     // Rush and Ambush
     
-    // let firstRecurringSpawnDoor = null;
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
     
     while (nextRushDoor <= 100) {
@@ -254,10 +253,6 @@ function generateRun() {
                 Math.random() < ambushChance ? "Ambush" : "Rush"
             );
             
-            // if (firstRecurringSpawnDoor === null) {
-                // firstRecurringSpawnDoor = spawnDoor;
-            // }
-            
         } else {
             break;
         }
@@ -265,6 +260,12 @@ function generateRun() {
         const gap = Math.floor(Math.random() * 4) + 5;
         nextRushDoor = spawnDoor + gap;
     }
+
+    rooms.forEach(room => {
+        if (room.entities.includes("Rush") || room.entities.includes("Ambush")) {
+            room.dark = false;
+        }
+    });
 
     // Eyes
     
@@ -287,7 +288,6 @@ function generateRun() {
             return;
         }
         
-        // if (firstRecurringSpawnDoor === null || room.number <= firstRecurringSpawnDoor || room.number > 90) return;
         if (room.number < 3 || room.number > 90) return;
         
         if (protectedRooms.has(room.type)) return;
