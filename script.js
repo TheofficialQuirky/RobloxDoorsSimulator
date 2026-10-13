@@ -89,6 +89,10 @@ function generateRun() {
             isDark = false;
         }
 
+        if (i >= 90 && i <= 99) {
+            isDark = true;
+        }
+
         rooms.push({ number: i, type, entities: [], dark: isDark });
     }
 
