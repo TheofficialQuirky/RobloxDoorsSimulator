@@ -49,16 +49,6 @@ function generateRun() {
     map.innerHTML = "";
 
     // Standard generation
-
-    rooms[48].type = "Hotel_LibraryEntrance";
-    rooms[49].type = "Hotel_Library";
-    rooms[50].type = "Hotel_LibraryExit";
-    rooms[59].type = "Hotel_ArchivesEntrance";
-    rooms[87].type = "Hotel_PreCourtyard";
-    rooms[88].type = "Hotel_Courtyard";
-    rooms[89].type = "Greenhouse_Intermission";
-    rooms[98].type = "Greenhouse_Intermission";
-    rooms[99].type = "Hotel_EndNew";
     
     const roomTypes = [
         "Hotel_AltDoors1", "Hotel_AltDoors2", "Hotel_AltDoors3", "Hotel_AltHallway1",
@@ -105,6 +95,16 @@ function generateRun() {
 
         rooms.push({ number: i, type, entities: [], dark: isDark });
     }
+
+    rooms[48].type = "Hotel_LibraryEntrance";
+    rooms[49].type = "Hotel_Library";
+    rooms[50].type = "Hotel_LibraryExit";
+    rooms[59].type = "Hotel_ArchivesEntrance";
+    rooms[87].type = "Hotel_PreCourtyard";
+    rooms[88].type = "Hotel_Courtyard";
+    rooms[89].type = "Greenhouse_Intermission";
+    rooms[98].type = "Greenhouse_Intermission";
+    rooms[99].type = "Hotel_EndNew";
 
     // Locked room patterns
 
