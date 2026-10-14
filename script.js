@@ -98,19 +98,22 @@ function generateRun() {
     
     for (let i = 1; i <= 100; i++) {
         const room = rooms[i - 1];
+        const type = room.type;
+    
         const darknessChance = 0.004 * i;
         let isDark = Math.random() < darknessChance;
-        
-        if (protectedRooms.has(type)) {
+    
+        if (protectedRooms.has(type) && type !== "Greenhouse_Intermission") {
             isDark = false;
         }
-
+    
         if (i >= 90 && i <= 99) {
             isDark = true;
         }
-
-        rooms.push({ number: i, type, entities: [], dark: isDark });
+    
+        room.dark = isDark;
     }
+
 
     // Locked room patterns
 
