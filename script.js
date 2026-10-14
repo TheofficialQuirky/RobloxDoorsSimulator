@@ -97,7 +97,7 @@ function generateRun() {
     rooms[99].type = "Hotel_EndNew";
     
     for (let i = 1; i <= 100; i++) {
-        const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
+        const room = rooms[i - 1];
         const darknessChance = 0.004 * i;
         let isDark = Math.random() < darknessChance;
         
