@@ -40,6 +40,27 @@ const protectedRushDoors = new Set([
     48, 49, 50, 58, 59, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 ]);
 
+// Defining item sets
+
+const itemPool = [
+    { name: "Flashlight", weight: 1 },
+    { name: "Vitamins", weight: 2 },
+    { name: "Lighter", weight: 2 },
+    { name: "Lockpick", weight: 2 }
+];
+
+function pickWeightedItem(pool) {
+    let total = 0;
+    pool.forEach(item => total += item.weight);
+
+    let roll = Math.random() * total;
+
+    for (const item of pool) {
+        if (roll < item.weight) return item.name;
+        roll -= item.weight;
+    }
+}
+
 // Room generation
 
 document.getElementById("generateBtn").addEventListener("click", generateRun);
@@ -226,6 +247,18 @@ function generateRun() {
         }
     });
 
+    // Guaranteed item spawns
+    
+    rooms.forEach(room => {
+        if (
+            room.type === "Hotel_HallwayCornerOffice" ||
+            room.type === "Hotel_HallwayCornerOfficeMirrored"
+        ) {
+            room.item = pickWeightedItem(itemPool);
+        }
+    });
+
+
     // Rush and Ambush
     
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
@@ -353,7 +386,7 @@ function generateRun() {
         const isLocked = lockedRooms.includes(type);
     
         let entityHTML = `<div class="roomEntities">`;
-    
+
         roomData.entities.forEach(entity => {
             let boxClass = "rushBox";
             let iconClass = "rushIcon";
@@ -379,17 +412,23 @@ function generateRun() {
                 </div>
             `;
         });
+
+        let itemHTML = "";
         
-        entityHTML += `</div>`;
-        
+        if (roomData.item) {
+            itemHTML = `<div class="itemName">${roomData.item}</div>`;
+        }
+
         room.innerHTML = isLocked
             ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-            <span class="roomName">${type}</span>
-            ${entityHTML}`
+               <span class="roomName">${type}</span>
+               ${itemHTML}
+               ${entityHTML}`
             : `<div class="roomTop">${number}</div>
-            <span class="roomName">${type}</span>
-             ${entityHTML}`;
-        
+               <span class="roomName">${type}</span>
+               ${itemHTML}
+               ${entityHTML}`;
+
         if (roomData.seekChase) {
             room.innerHTML = `
                 <div class="roomTop">
@@ -408,6 +447,7 @@ function generateRun() {
                     <img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
                 </div>
                 <span class="roomName">${type}</span>
+                ${itemHTML}
                 ${entityHTML}
             `;
         }
