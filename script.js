@@ -80,6 +80,22 @@ function generateRun() {
     map.appendChild(room0);
 
     const rooms = [];
+
+    for (let i = 1; i <= 100; i++) {
+        const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
+        rooms.push({ number: i, type, entities: [], dark: false });
+    }
+
+    rooms[48].type = "Hotel_LibraryEntrance";
+    rooms[49].type = "Hotel_Library";
+    rooms[50].type = "Hotel_LibraryExit";
+    rooms[59].type = "Hotel_ArchivesEntrance";
+    rooms[87].type = "Hotel_PreCourtyard";
+    rooms[88].type = "Hotel_Courtyard";
+    rooms[89].type = "Greenhouse_Intermission";
+    rooms[98].type = "Greenhouse_Intermission";
+    rooms[99].type = "Hotel_EndNew";
+    
     for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
         const darknessChance = 0.004 * i;
@@ -95,16 +111,6 @@ function generateRun() {
 
         rooms.push({ number: i, type, entities: [], dark: isDark });
     }
-
-    rooms[48].type = "Hotel_LibraryEntrance";
-    rooms[49].type = "Hotel_Library";
-    rooms[50].type = "Hotel_LibraryExit";
-    rooms[59].type = "Hotel_ArchivesEntrance";
-    rooms[87].type = "Hotel_PreCourtyard";
-    rooms[88].type = "Hotel_Courtyard";
-    rooms[89].type = "Greenhouse_Intermission";
-    rooms[98].type = "Greenhouse_Intermission";
-    rooms[99].type = "Hotel_EndNew";
 
     // Locked room patterns
 
