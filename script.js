@@ -44,9 +44,10 @@ const protectedRushDoors = new Set([
 
 const itemPool = [
     { name: "Flashlight", weight: 1 },
-    { name: "Vitamins", weight: 2 },
-    { name: "Lighter", weight: 2 },
-    { name: "Lockpick", weight: 2 }
+    { name: "Vitamins", weight: 3 },
+    { name: "Lighter", weight: 3 },
+    { name: "Lockpick", weight: 3 },
+    { name: "just gold lmao", weight: 1 },
 ];
 
 function pickWeightedItem(pool) {
