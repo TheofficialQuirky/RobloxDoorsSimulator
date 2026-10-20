@@ -248,7 +248,7 @@ function generateRun() {
         }
     });
 
-    // Guaranteed item spawns
+    // Item spawns
     
     rooms.forEach(room => {
         if (
@@ -257,9 +257,11 @@ function generateRun() {
         ) {
             room.item = pickWeightedItem(itemPool);
         }
+        if (room.type === "Hotel_CellarGate1" && Math.random() < 0.9) {
+            room.item = "Smoothie";
+        }
     });
-
-
+    
     // Rush and Ambush
     
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
