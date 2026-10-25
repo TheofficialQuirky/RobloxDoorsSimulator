@@ -289,7 +289,7 @@ function generateRun() {
 
     rooms.forEach(room => {
         if (room.number < 89) {
-            if (Math.random() < 1/20) {   // 1 in 20 chance
+            if (Math.random() < 0.05) {
                 room.item = pickWeightedItem(itemPool);
             }
         }
