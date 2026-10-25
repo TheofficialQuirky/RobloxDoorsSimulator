@@ -10,6 +10,7 @@ const lockedRooms = [
 ];
 
 const protectedRooms = new Set([
+    "Hotel_Reception",
     "Hotel_LibraryEntrance",
     "Hotel_Library",
     "Hotel_LibraryExit",
@@ -252,7 +253,26 @@ function generateRun() {
             room.dark = false;
         }
     });
+    
+    // Those CellarGate rooms
 
+    const cellarGateCount = Math.floor(Math.random() * 3) + 1;
+    
+    const validCellarGateCandidates = rooms
+    .map((room, index) => ({ room, index }))
+    .filter(r =>
+        r.room.number < 89 &&
+        !protectedRooms.has(r.room.type) &&
+        !r.room.seekChase &&
+        !r.room.seekCrescendo
+    );
+    
+    validCellarGateCandidates.sort(() => Math.random() - 0.5);
+    const chosenCellarGates = validCellarGateCandidates.slice(0, cellarGateCount);
+    chosenCellarGates.forEach(entry => {
+        rooms[entry.index].type = "Hotel_CellarGate1";
+    });
+    
     // Item spawns
     
     rooms.forEach(room => {
