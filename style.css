@@ -64,17 +64,6 @@ h1 {
     display: block;
 }
 
-.itemName {
-    position: absolute;
-    top: 4px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 30px;
-    color: #ffffff;
-    pointer-events: none;
-}
-
 .lockIcon {
     width: 40px;
     height: 40px;
