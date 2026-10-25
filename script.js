@@ -143,7 +143,7 @@ function generateRun() {
     }
 
 
-    // Locked room patterns
+    // Locked room generation
 
     const lockPatterns = [
         { early: 2, late: 1 },
@@ -257,23 +257,24 @@ function generateRun() {
     // Those CellarGate rooms
 
     const cellarGateCount = Math.floor(Math.random() * 3) + 1;
+
+    let chosen = 0;
+    while (chosen < cellarGateCount) {
+        const index = Math.floor(Math.random() * 88);
+        const room = rooms[index];
     
-    const validCellarGateCandidates = rooms
-    .map((room, index) => ({ room, index }))
-    .filter(r =>
-        r.room.number < 89 &&
-        !protectedRooms.has(r.room.type) &&
-        !r.room.seekChase &&
-        !r.room.seekCrescendo
-    );
+        if (
+            !protectedRooms.has(room.type) &&
+            !room.seekChase &&
+            !room.seekCrescendo &&
+            room.type !== "Hotel_CellarGate1"
+        ) {
+            room.type = "Hotel_CellarGate1";
+            chosen++;
+        }
+    }
     
-    validCellarGateCandidates.sort(() => Math.random() - 0.5);
-    const chosenCellarGates = validCellarGateCandidates.slice(0, cellarGateCount);
-    chosenCellarGates.forEach(entry => {
-        rooms[entry.index].type = "Hotel_CellarGate1";
-    });
-    
-    // Item spawns
+    // Item generation
     
     rooms.forEach(room => {
         if (
