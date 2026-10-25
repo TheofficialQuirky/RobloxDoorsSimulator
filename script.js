@@ -266,7 +266,15 @@ function generateRun() {
             room.item = "Smoothie";
         }
     });
-    
+
+    rooms.forEach(room => {
+        if (room.number < 89) {
+            if (Math.random() < 1/20) {   // 1 in 20 chance
+                room.item = pickWeightedItem(itemPool);
+            }
+        }
+    });
+
     // Rush and Ambush
     
     let nextRushDoor = Math.floor(Math.random() * 4) + 12;
