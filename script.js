@@ -48,8 +48,7 @@ const itemPool = [
     { name: "Flashlight", weight: 1 },
     { name: "Vitamins", weight: 3 },
     { name: "Lighter", weight: 3 },
-    { name: "Lockpick", weight: 3 },
-    { name: "just gold lmao", weight: 1 },
+    { name: "Lockpick", weight: 3 }
 ];
 
 function pickWeightedItem(pool) {
@@ -423,9 +422,12 @@ function generateRun() {
         });
 
         let itemHTML = "";
-        
         if (roomData.item) {
-            itemHTML = `<div class="itemName">${roomData.item}</div>`;
+            itemHTML = `
+                <div class="itemIcons">
+                    <img src="${roomData.item} icon.png" class="itemIcon">
+                </div>
+            `;
         }
 
         room.innerHTML = isLocked
