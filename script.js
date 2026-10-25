@@ -266,7 +266,6 @@ function generateRun() {
         if (
             !protectedRooms.has(room.type) &&
             !room.seekChase &&
-            !room.seekCrescendo &&
             room.type !== "Hotel_CellarGate1"
         ) {
             room.type = "Hotel_CellarGate1";
