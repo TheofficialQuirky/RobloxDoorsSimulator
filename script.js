@@ -254,9 +254,9 @@ function generateRun() {
         }
     });
     
-    // Those CellarGate rooms
+    // Those basement rooms
 
-    const cellarGateCount = Math.floor(Math.random() * 3) + 1;
+    const cellarGateCount = Math.floor(Math.random() * 2) + 1;
 
     let chosen = 0;
     while (chosen < cellarGateCount) {
