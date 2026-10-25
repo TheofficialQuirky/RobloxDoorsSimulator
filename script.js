@@ -369,9 +369,9 @@ function generateRun() {
         }
         
         if (room.number < 3 || room.number > 90) return;
-        
         if (protectedRooms.has(room.type)) return;
         if (room.seekChase) return;
+        if (room.type === "Hotel_CellarGate1") return;
         
         const dupeChance = room.number > 50 ? 0.1333 : room.number / 300;
         
