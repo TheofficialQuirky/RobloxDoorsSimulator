@@ -13,6 +13,8 @@ const protectedRooms = new Set([
     "Hotel_LibraryEntrance",
     "Hotel_Library",
     "Hotel_LibraryExit",
+    "Hotel_JeffShopEntrance",
+    "Hotel_JeffShop",
     "Hotel_ArchivesEntrance",
     "Hotel_PreCourtyard",
     "Hotel_Courtyard",
@@ -108,9 +110,13 @@ function generateRun() {
         rooms.push({ number: i, type, entities: [], dark: false });
     }
 
+    const jeffShopEntranceDoor = Math.floor(Math.random() * 7) + 52;
+
     rooms[48].type = "Hotel_LibraryEntrance";
     rooms[49].type = "Hotel_Library";
     rooms[50].type = "Hotel_LibraryExit";
+    rooms[jeffShopEntranceDoor].type = "Hotel_JeffShopEntrance";
+    rooms[jeffShopEntranceDoor + 1].type = "Hotel_JeffShop";
     rooms[59].type = "Hotel_ArchivesEntrance";
     rooms[87].type = "Hotel_PreCourtyard";
     rooms[88].type = "Hotel_Courtyard";
