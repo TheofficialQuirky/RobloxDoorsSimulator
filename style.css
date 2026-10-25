@@ -115,6 +115,23 @@ h1 {
     justify-content: center;
 }
 
+.itemIcons {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    pointer-events: none;
+}
+
+.itemIcon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
 .rushBox {
     background: #000000;
 }
