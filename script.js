@@ -278,7 +278,8 @@ function generateRun() {
     rooms.forEach(room => {
         if (
             room.type === "Hotel_HallwayCornerOffice" ||
-            room.type === "Hotel_HallwayCornerOfficeMirrored"
+            room.type === "Hotel_HallwayCornerOfficeMirrored" ||
+            room.type === "Hotel_HallwaySideroom1"
         ) {
             room.item = pickWeightedItem(itemPool);
         }
