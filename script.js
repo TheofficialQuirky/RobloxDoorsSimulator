@@ -46,10 +46,10 @@ const protectedRushDoors = new Set([
 // Defining item sets
 
 const itemPool = [
-    { name: "Flashlight", weight: 1 },
-    { name: "Vitamins", weight: 3 },
-    { name: "Lighter", weight: 3 },
-    { name: "Lockpick", weight: 3 }
+    {name: "Flashlight", weight: 1},
+    {name: "Vitamins", weight: 3},
+    {name: "Lighter", weight: 3},
+    {name: "Lockpick", weight: 3}
 ];
 
 function pickWeightedItem(pool) {
@@ -107,7 +107,7 @@ function generateRun() {
 
     for (let i = 1; i <= 100; i++) {
         const type = roomTypes[Math.floor(Math.random() * roomTypes.length)];
-        rooms.push({ number: i, type, entities: [], dark: false });
+        rooms.push({number: i, type, entities: [], items: [], dark: false});
     }
 
     const jeffShopEntranceDoor = Math.floor(Math.random() * 7) + 52;
@@ -281,18 +281,21 @@ function generateRun() {
             room.type === "Hotel_HallwayCornerOfficeMirrored" ||
             room.type === "Hotel_HallwaySideroom1"
         ) {
-            room.item = pickWeightedItem(itemPool);
+            room.items.push(pickWeightedItem(itemPool));
         }
         if (room.type === "Hotel_CellarGate1" && Math.random() < 0.9) {
-            room.item = "Smoothie";
+            room.items.push("Smoothie");
         }
     });
 
     rooms.forEach(room => {
+        if (room.type.includes("Backroom")) return;
+        
         if (room.number < 89 && Math.random() < 0.05) {
-            room.item = pickWeightedItem(itemPool);
+            room.items.push(pickWeightedItem(itemPool));
         }
     });
+
 
     // Rush and Ambush
     
@@ -449,10 +452,12 @@ function generateRun() {
         });
 
         let itemHTML = "";
-        if (roomData.item) {
+        if (roomData.items && roomData.items.length > 0) {
             itemHTML = `
                 <div class="itemIcons">
-                    <img src="${roomData.item} icon.png" class="itemIcon">
+                    ${roomData.items
+                        .map(name => `<img src="${name} icon.png" class="itemIcon">`)
+                        .join("")}
                 </div>
             `;
         }
