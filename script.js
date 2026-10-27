@@ -289,10 +289,8 @@ function generateRun() {
     });
 
     rooms.forEach(room => {
-        if (room.number < 89) {
-            if (Math.random() < 0.05) {
-                room.item = pickWeightedItem(itemPool);
-            }
+        if (room.number < 89 && Math.random() < 0.05) {
+            room.item = pickWeightedItem(itemPool);
         }
     });
 
