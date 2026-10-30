@@ -231,6 +231,8 @@ function generateRun() {
     
     // Item generation
 
+    rooms[48].items.push("Alarm clock");
+    rooms[49].items.push("Alarm clock");
     rooms.forEach(room => {
         if (room.type === "Hotel_HallwayCornerOffice" || room.type === "Hotel_HallwayCornerOfficeMirrored" ||
             room.type === "Hotel_HallwaySideroom1") {
