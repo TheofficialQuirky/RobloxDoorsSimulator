@@ -230,7 +230,7 @@ function generateRun() {
     }
     
     // Item generation
-    
+
     rooms.forEach(room => {
         if (room.type === "Hotel_HallwayCornerOffice" || room.type === "Hotel_HallwayCornerOfficeMirrored" ||
             room.type === "Hotel_HallwaySideroom1") {
@@ -318,7 +318,6 @@ function generateRun() {
             if (room.number < 50) earlyDupeCount++;
         }
     });
-
     if (earlyDupeCount < 2) {
         const needed = 2 - earlyDupeCount;
         for (let i = 0; i < needed; i++) {
@@ -363,48 +362,21 @@ function generateRun() {
         });
         let itemHTML = "";
         if (roomData.items && roomData.items.length > 0) {
-            itemHTML = `
-                <div class="itemIcons">
-                    ${roomData.items
-                        .map(name => `<img src="${name} icon.png" class="itemIcon">`)
-                        .join("")}
-                </div>
-            `;
+            itemHTML = `<div class="itemIcons">${roomData.items.map(name => `<img src="${name} icon.png" class="itemIcon">`)
+                .join("")}</div>`;
         }
-
         room.innerHTML = isLocked
             ? `<div class="roomTop lockedTop">${number}<img src="Lock_icon.svg" class="lockIcon"></div>
-               <span class="roomName">${type}</span>
-               ${itemHTML}
-               ${entityHTML}`
-            : `<div class="roomTop">${number}</div>
-               <span class="roomName">${type}</span>
-               ${itemHTML}
-               ${entityHTML}`;
-
+               <span class="roomName">${type}</span>${itemHTML}${entityHTML}`
+            : `<div class="roomTop">${number}</div><span class="roomName">${type}</span>${itemHTML}${entityHTML}`;
         if (roomData.seekChase) {
-            room.innerHTML = `
-                <div class="roomTop">
-                    ${number}
-                    <img src="Seek_Icon.png" class="seekIcon">
-                </div>
-                <span class="roomName">${type}</span>
-                ${entityHTML}
-            `;
+            room.innerHTML = `<div class="roomTop">${number}<img src="Seek_Icon.png" class="seekIcon"></div>
+                <span class="roomName">${type}</span>${entityHTML}`;
         }
-
         if (roomData.seekCrescendo) {
-            room.innerHTML = `
-                <div class="roomTop">
-                    ${number}
-                    <img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
-                </div>
-                <span class="roomName">${type}</span>
-                ${itemHTML}
-                ${entityHTML}
-            `;
+            room.innerHTML = `<div class="roomTop">${number}<img src="SeekCrescendo_Icon.png" class="seekCrescendoIcon">
+                </div><span class="roomName">${type}</span>${itemHTML}${entityHTML}`;
         }
-        
         map.appendChild(room);
     });
 }
